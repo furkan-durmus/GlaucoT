@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -16,29 +18,40 @@ namespace Web.Controllers
         }
 
         public IActionResult Index()
-        {
-            //var login = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name,"tuncay")
-            //};
-            //var userIdentity = new ClaimsIdentity(login,"login");
-            //var userPrincipal = new ClaimsPrincipal(userIdentity);
-            //await AuthenticationHttpContextExtensions.SignInAsync(HttpContext,userPrincipal);
-
-            //await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
-
+        { 
             return View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Login()
+        {
+            var login = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,"tuncay")
+            };
+            var userIdentity = new ClaimsIdentity(login, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(userIdentity);
+            var authProperties = new AuthenticationProperties();
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties).Wait();
+
+            return RedirectToAction("Privacy");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index");
         }
     }
 }
