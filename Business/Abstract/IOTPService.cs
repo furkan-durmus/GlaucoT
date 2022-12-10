@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IRegisterService
+    public interface IOTPService
     {
-        bool CheckKeyIsValid(RegisterPatient user);
-        bool CheckPhoneIsExist(string userPhone);
-        
- 
+        void Create(OTP userOTP);
+        bool CheckOTP(RegisterPatient user);
+        bool CheckAcceptableSmsLimit(RegisterPatient user);
     }
 }

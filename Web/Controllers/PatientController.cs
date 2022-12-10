@@ -14,12 +14,14 @@ namespace Web.Controllers
         IRegisterService _registerService;
         ILoginService _loginService;
         IMobileHomeService _mobileHomeService;
-        public PatientController(IPatientService patientService, IRegisterService registerService, ILoginService loginService, IMobileHomeService mobileHomeService)
+        IOTPService _otpService;
+        public PatientController(IPatientService patientService, IRegisterService registerService, ILoginService loginService, IMobileHomeService mobileHomeService, IOTPService otpService)
         {
             _patientService = patientService;
             _registerService = registerService;
             _loginService = loginService;
             _mobileHomeService = mobileHomeService;
+            _otpService = otpService;
         }
 
         [HttpPost("register")]
@@ -29,13 +31,14 @@ namespace Web.Controllers
 
             if (!_registerService.CheckKeyIsValid(registerPatient))
             {
-                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { status = -99,message = $"Yetkisiz İşlem!" });
             }
 
-            if (_registerService.CheckPhoneIsExist(registerPatient.PatientPhoneNumber))
+            if (!_otpService.CheckOTP(registerPatient))
             {
-                return Ok(new { message = $"Bu telefon numarası ile kayıtlı bir hesabınız bulunuyor.", data = 0 });
+                return Ok(new { status = 0, message = $"Geçersiz OTP" });
             }
+
 
             Patient patient = new();
             patient.PatientId = new Guid();
@@ -49,7 +52,7 @@ namespace Web.Controllers
             patient.IsActive = true;
 
             _patientService.Add(patient);
-            return Ok(new { message = $"Kayıt işlemi başarılı.", data = patient.PatientId });
+            return Ok(new { message = patient.PatientId , status = 1 });
         }
 
 
@@ -59,14 +62,14 @@ namespace Web.Controllers
 
             if (!_loginService.CheckKeyIsValid(loginPatient))
             {
-                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { status = -99, message = $"Yetkisiz İşlem!" });
             }
 
             if (!_loginService.CheckLoginIsValid(loginPatient))
             {
-                return Ok(new { message = $"Telefon numarası veya Şifre hatalı.", data = 0 });
+                return Ok(new { status = 0, message = $"Telefon numarası veya Şifre hatalı." });
             }           
-            return Ok(new {data = _loginService.ResponsePatientId(loginPatient).PatientId });
+            return Ok(new { status = 1 , message = _loginService.ResponsePatientId(loginPatient).PatientId });
         }
 
         [HttpPost("home")]
@@ -75,11 +78,40 @@ namespace Web.Controllers
 
             if (!_mobileHomeService.CheckKeyIsValid(patient.PatientId, patient.SecretKey))
             {
-                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
             }
 
                    
-            return Ok(new {UserProfileData = _mobileHomeService.GetUserProfileData(patient.PatientId), UserDrugsData = _mobileHomeService.GetUserDrugsData(patient.PatientId) });
+            return Ok(new { status = 1,message =new { UserProfileData = _mobileHomeService.GetUserProfileData(patient.PatientId), UserDrugsData = _mobileHomeService.GetUserDrugsData(patient.PatientId)} });
+        }
+        
+
+        [HttpPost("sendregistersms")]
+        public IActionResult PatientSendOTP(RegisterPatient registerPatient)
+        {
+
+            if (!_registerService.CheckKeyIsValid(registerPatient))
+            {
+                return Ok(new { status = -99, message = $"Yetkisiz İşlem!" });
+            }
+
+            if (!_otpService.CheckAcceptableSmsLimit(registerPatient))
+            {
+                return Ok(new { status = -1, message = $"Too many request" });
+            }
+
+            if (_registerService.CheckPhoneIsExist(registerPatient.PatientPhoneNumber))
+            {
+                return Ok(new { status = 0, message = $"Bu telefon numarası ile kayıtlı bir hesabınız bulunuyor." });
+            }
+            OTP userOTPData = new();
+            userOTPData.PatientPhoneNumber = registerPatient.PatientPhoneNumber;
+            userOTPData.OTPCode = "12345";
+            userOTPData.CreateDate = DateTime.Now;
+            userOTPData.ExpireDate = DateTime.Now.AddMinutes(3);
+            _otpService.Create(userOTPData);
+
+            return Ok(new { status = 1,message = $"OTP başarıyla oluşturuldu." });
         }
 
 

@@ -13,16 +13,17 @@ namespace Business.Constants
     {
         IPatientDal _patientDal;
 
-        public RegisterManager(IPatientDal patientDal)
+
+        public RegisterManager(IPatientDal patientDal, IOTPDal otpDal)
         {
             _patientDal = patientDal;
         }
 
         public bool CheckPhoneIsExist(string userPhone)
         {
-            return _patientDal.Get(p=>p.PatientPhoneNumber == userPhone) != null ? true : false;
+            return _patientDal.Get(p => p.PatientPhoneNumber == userPhone) != null ? true : false;
         }
-      
+
 
         public bool CheckKeyIsValid(RegisterPatient user)
         {
@@ -31,9 +32,12 @@ namespace Business.Constants
             {
                 expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
             }
-            foreach (char character in user.PatientPassword)
+            if (user.PatientPassword != null)
             {
-                expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
+                foreach (char character in user.PatientPassword)
+                {
+                    expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
+                }
             }
             string mykeyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(expectedSecretKey));
 

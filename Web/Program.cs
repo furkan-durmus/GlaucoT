@@ -23,6 +23,9 @@ builder.Services.AddSingleton<IMedicineDal, EFMedicineDal>();
 builder.Services.AddSingleton<IPatientService, PatientManager>();
 builder.Services.AddSingleton<IPatientDal, EFPatientDal>();
 
+builder.Services.AddSingleton<IOTPService, OTPManager>();
+builder.Services.AddSingleton<IOTPDal, EFOTPDal>();
+
 builder.Services.AddSingleton<IRegisterService, RegisterManager>();
 builder.Services.AddSingleton<ILoginService, LoginManager>();
 builder.Services.AddSingleton<IMobileHomeService, MobileHomeManager>();

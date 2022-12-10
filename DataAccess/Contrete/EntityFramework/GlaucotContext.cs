@@ -21,5 +21,6 @@ namespace DataAccess.Contrete.EntityFramework
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<MedicineRecord> MedicineRecords { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<OTP> OTPs { get; set; }
     }
 }
