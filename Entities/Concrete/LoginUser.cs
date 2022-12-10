@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class LoginUser
+    public class LoginPatient
     {
-        public string UserEmail { get; set; }
-        public string UserPassword { get; set; }
+        public string PatientPhoneNumber { get; set; }
+        public string PatientPassword { get; set; }
         public string SecretKey { get; set; }
     }
 }

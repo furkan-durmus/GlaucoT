@@ -24,25 +24,28 @@ namespace Web.Controllers
 
         [HttpPost("register")]
 
-        public IActionResult RegisterPatient(RegisterUser registerPatient)
+        public IActionResult RegisterPatient(RegisterPatient registerPatient)
         {
 
             if (!_registerService.CheckKeyIsValid(registerPatient))
             {
-                return Unauthorized(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
             }
 
-            if (_registerService.CheckEmailIsExist(registerPatient.UserEmail))
+            if (_registerService.CheckPhoneIsExist(registerPatient.PatientPhoneNumber))
             {
-                return Conflict(new { message = $"Bu email adresi ile bir hesabınız bulunuyor.", data = 0 });
+                return Ok(new { message = $"Bu telefon numarası ile kayıtlı bir hesabınız bulunuyor.", data = 0 });
             }
 
             Patient patient = new();
             patient.PatientId = new Guid();
-            patient.PatientName = registerPatient.UserName;
-            patient.PatientLastName = registerPatient.UserLastName;
-            patient.PatientEmail = registerPatient.UserEmail;
-            patient.PatientPassword = registerPatient.UserPassword;
+            patient.PatientName = registerPatient.PatientName;
+            patient.PatientLastName = registerPatient.PatientLastName;
+            patient.PatientAge = 0;
+            patient.PatientGender = 0;
+            patient.PatientPhoneNumber = registerPatient.PatientPhoneNumber;
+            patient.PatientPassword = registerPatient.PatientPassword;
+            patient.PatientPhotoPath = "null";
             patient.IsActive = true;
 
             _patientService.Add(patient);
@@ -51,17 +54,17 @@ namespace Web.Controllers
 
 
         [HttpPost("login")]
-        public IActionResult Login(LoginUser loginPatient)
+        public IActionResult Login(LoginPatient loginPatient)
         {
 
             if (!_loginService.CheckKeyIsValid(loginPatient))
             {
-                return Unauthorized(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
             }
 
             if (!_loginService.CheckLoginIsValid(loginPatient))
             {
-                return BadRequest(new { message = $"Email adresi veya Şifre hatalı.", data = 0 });
+                return Ok(new { message = $"Telefon numarası veya Şifre hatalı.", data = 0 });
             }           
             return Ok(new {data = _loginService.ResponsePatientId(loginPatient).PatientId });
         }
@@ -72,7 +75,7 @@ namespace Web.Controllers
 
             if (!_mobileHomeService.CheckKeyIsValid(patient.PatientId, patient.SecretKey))
             {
-                return Unauthorized(new { message = $"Yetkisiz İşlem!", data = -1 });
+                return Ok(new { message = $"Yetkisiz İşlem!", data = -1 });
             }
 
                    

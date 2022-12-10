@@ -18,20 +18,20 @@ namespace Business.Constants
             _patientDal = patientDal;
         }
 
-        public bool CheckEmailIsExist(string userEmail)
+        public bool CheckPhoneIsExist(string userPhone)
         {
-            return _patientDal.Get(p=>p.PatientEmail==userEmail) != null ? true : false;
+            return _patientDal.Get(p=>p.PatientPhoneNumber == userPhone) != null ? true : false;
         }
       
 
-        public bool CheckKeyIsValid(RegisterUser user)
+        public bool CheckKeyIsValid(RegisterPatient user)
         {
             string expectedSecretKey = "";
-            foreach (char character in user.UserEmail)
+            foreach (char character in user.PatientPhoneNumber)
             {
                 expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
             }
-            foreach (char character in user.UserPassword)
+            foreach (char character in user.PatientPassword)
             {
                 expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
             }

@@ -9,8 +9,8 @@ namespace Business.Abstract
 {
     public interface ILoginService
     {
-        bool CheckKeyIsValid(LoginUser user);
-        bool CheckLoginIsValid(LoginUser user);
-        Patient ResponsePatientId(LoginUser user);
+        bool CheckKeyIsValid(LoginPatient user);
+        bool CheckLoginIsValid(LoginPatient user);
+        Patient ResponsePatientId(LoginPatient user);
     }
 }

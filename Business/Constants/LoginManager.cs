@@ -17,20 +17,20 @@ namespace Business.Constants
         {
             _patientDal = patientDal;
         }
-        public bool CheckLoginIsValid(LoginUser user)
+        public bool CheckLoginIsValid(LoginPatient user)
         {
-            return _patientDal.Get(p => p.PatientEmail == user.UserEmail && p.PatientPassword == user.UserPassword) != null ? true : false;
+            return _patientDal.Get(p => p.PatientPhoneNumber == user.PatientPhoneNumber && p.PatientPassword == user.PatientPassword) != null ? true : false;
         }
 
 
-        public bool CheckKeyIsValid(LoginUser user)
+        public bool CheckKeyIsValid(LoginPatient user)
         {
             string expectedSecretKey = "";
-            foreach (char character in user.UserEmail)
+            foreach (char character in user.PatientPhoneNumber)
             {
                 expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
             }
-            foreach (char character in user.UserPassword)
+            foreach (char character in user.PatientPassword)
             {
                 expectedSecretKey = expectedSecretKey + System.Convert.ToInt32(character);
             }
@@ -46,9 +46,9 @@ namespace Business.Constants
             return expectedSecretKey == user.SecretKey ? true : false;
         }
 
-        public Patient ResponsePatientId(LoginUser user)
+        public Patient ResponsePatientId(LoginPatient user)
         {
-            return _patientDal.Get(p => p.PatientEmail == user.UserEmail && p.PatientPassword == user.UserPassword);
+            return _patientDal.Get(p => p.PatientPhoneNumber == user.PatientPhoneNumber && p.PatientPassword == user.PatientPassword);
         }
     }
 }

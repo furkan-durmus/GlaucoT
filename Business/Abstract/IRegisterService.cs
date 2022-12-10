@@ -9,7 +9,7 @@ namespace Business.Abstract
 {
     public interface IRegisterService
     {
-        bool CheckKeyIsValid(RegisterUser user);
-        bool CheckEmailIsExist(string userEmail);
+        bool CheckKeyIsValid(RegisterPatient user);
+        bool CheckPhoneIsExist(string userPhone);
     }
 }
