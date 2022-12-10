@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using Web.Models;
 
 namespace Web.Controllers
@@ -15,6 +17,16 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
+            //var login = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Name,"tuncay")
+            //};
+            //var userIdentity = new ClaimsIdentity(login,"login");
+            //var userPrincipal = new ClaimsPrincipal(userIdentity);
+            //await AuthenticationHttpContextExtensions.SignInAsync(HttpContext,userPrincipal);
+
+            //await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext);
+
             return View();
         }
 
