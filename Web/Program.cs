@@ -2,6 +2,7 @@ using Business.Abstract;
 using Business.Constants;
 using DataAccess.Abstract;
 using DataAccess.Contrete.EntityFramework;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,14 @@ builder.Services.AddSingleton<ILoginService, LoginManager>();
 builder.Services.AddSingleton<IMobileHomeService, MobileHomeManager>();
 
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Index";
+        options.Cookie.Name = "test";
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,9 +51,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCookiePolicy();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
