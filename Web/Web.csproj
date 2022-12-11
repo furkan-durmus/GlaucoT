@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Home\" />
+  </ItemGroup>
 </Project>

@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.LoginPath = "/Home/Index";
-        options.Cookie.Name = "test";
+        options.Cookie.Name = "GlaucotCookie";
     });
 
 

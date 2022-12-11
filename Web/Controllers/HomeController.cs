@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using Web.Models;
+using Web.Models.Home;
 
 namespace Web.Controllers
 {
@@ -28,11 +29,12 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult PatientLogin(PatientLoginViewModel model)
         {
             var login = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,"tuncay")
+                new Claim(ClaimTypes.Name,model.PatientUserName),
+                new Claim(ClaimTypes.Role, "Patient")
             };
             var userIdentity = new ClaimsIdentity(login, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(userIdentity);
@@ -48,7 +50,7 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> PatientLogout()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index");
