@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="Models\Home\" />
+    <None Remove="Views\Doctor\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Home\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Doctor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\" />

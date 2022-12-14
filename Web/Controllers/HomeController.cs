@@ -37,7 +37,8 @@ namespace Web.Controllers
             {
                 var login = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,(loginResult.DoctorName + " " + loginResult.DoctorLastName)),
+                    new Claim(ClaimTypes.Name, loginResult.DoctorName),
+                    new Claim(ClaimTypes.Surname, loginResult.DoctorLastName),
                     new Claim(ClaimTypes.Role, "Doctor"),
                     new Claim(ClaimTypes.Email, loginResult.DoctorEmail),
                     new Claim("Id",loginResult.DoctorId.ToString())
