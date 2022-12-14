@@ -38,6 +38,11 @@ namespace Business.Constants
             return _doctorDal.GetAll();
         }
 
+        public Doctor Login(string email, string password)
+        {
+            return _doctorDal.Get(q => q.DoctorEmail == email && q.DoctorPassword == password);
+        }
+
         public void Update(Doctor doctor)
         {
             _doctorDal.Update(doctor);
