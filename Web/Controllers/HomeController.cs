@@ -29,12 +29,12 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult PatientLogin(PatientLoginViewModel model)
+        public IActionResult Login(LoginViewModel model)
         {
             var login = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,model.PatientUserName),
-                new Claim(ClaimTypes.Role, "Patient")
+                new Claim(ClaimTypes.Role, "Admin")
             };
             var userIdentity = new ClaimsIdentity(login, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(userIdentity);
@@ -50,7 +50,7 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> PatientLogout()
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index");
