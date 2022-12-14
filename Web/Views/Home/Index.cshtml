@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Web.Models.Home.LoginViewModel
+@{
     Layout = null;
 }
 
@@ -36,12 +37,14 @@
                         @*<div class="form-icon">
                             <div class="icon-holder"><img src="/images/glaucot.png" alt=""></div>
                         </div>*@
-                        <h3 class="form-title-center">Sign up and get access to the full guide right now</h3>
-                        <form>
-                            <input class="form-control" type="text" name="username" placeholder="E-mail Address" required>
-                            <input class="form-control" type="password" name="password" placeholder="Password" required>
+                        <h3 class="form-title-center">Sign in</h3>
+                        <form method="post" asp-controller="Home" asp-action="Index">
+                            <input class="form-control" type="text" asp-for="UserName" placeholder="E-mail Address" required>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                            <input class="form-control mt-3" type="password" asp-for="UserPassword" placeholder="Password" required>
+                            <span asp-validation-for="UserPassword" class="text-danger"></span>
                             <div class="form-button">
-                                <button id="submit" type="submit" class="ibtn ibtn-full">Get it now</button>
+                                <button id="submit" type="submit" class="ibtn ibtn-full">Login</button>
                             </div>
                         </form>
                     </div>
@@ -54,7 +57,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @*<script src="~/lib/jquery-validation-unobtrusive/jquery-validation-unobtrusive.min.js"></script>*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

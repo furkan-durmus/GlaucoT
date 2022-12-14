@@ -23,25 +23,25 @@ namespace Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(LoginViewModel model)
+        {
+            //var login = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Name,model.PatientUserName),
+            //    new Claim(ClaimTypes.Role, "Admin")
+            //};
+            //var userIdentity = new ClaimsIdentity(login, CookieAuthenticationDefaults.AuthenticationScheme);
+            //var principal = new ClaimsPrincipal(userIdentity);
+            //var authProperties = new AuthenticationProperties();
+            //HttpConte
+            return View();
+        }
+
         [Authorize]
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult Login(LoginViewModel model)
-        {
-            var login = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name,model.PatientUserName),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
-            var userIdentity = new ClaimsIdentity(login, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(userIdentity);
-            var authProperties = new AuthenticationProperties();
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties).Wait();
-
-            return RedirectToAction("Privacy");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -53,7 +53,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
     }
 }
