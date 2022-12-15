@@ -10,7 +10,6 @@ namespace Business.Abstract
     public interface IMobileHomeService
     {
         bool CheckKeyIsValid(Guid patientId, string key);
-        Patient GetUserProfileData(Guid patientId);
-        List<MedicineRecord> GetUserDrugsData(Guid patientId);
+        ApiHomePatientData GetAllPatientDataForMobileHome(Guid patientId);
     }
 }

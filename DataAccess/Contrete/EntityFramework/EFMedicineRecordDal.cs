@@ -9,7 +9,25 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Contrete.EntityFramework
 {
-    public class EFMedicineRecordDal : EFEntityRepositoryBase<MedicineRecord,GlaucotContext> , IMedicineRecordDal
+    public class EFMedicineRecordDal : EFEntityRepositoryBase<MedicineRecord, GlaucotContext>, IMedicineRecordDal
     {
+        public List<UserMedicinesData> GetAllMedicineDataOfPatient(Guid patientId)
+        {
+            using (GlaucotContext context = new GlaucotContext())
+            {
+                return (from medicineRecords in context.MedicineRecords
+                        join medicines in context.Medicines on medicineRecords.MedicineId equals medicines.MedicineId
+                        where medicineRecords.PatientId == patientId
+                        select new UserMedicinesData
+                        {
+                            Id = medicineRecords.Id,
+                            MedicineName = medicines.MedicineName,
+                            MedicineFrequency = medicineRecords.MedicineFrequency,
+                            MedicineSideEffect = medicines.MedicineSideEffect,
+                            MedicineUsageRange = medicineRecords.MedicineUsageRange,
+                            MedicineUsegeTimeList =medicineRecords.MedicineUsegeTimeList
+                        }).ToList();
+            }
+        }
     }
 }

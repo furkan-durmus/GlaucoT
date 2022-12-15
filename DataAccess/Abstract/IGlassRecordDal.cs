@@ -10,5 +10,6 @@ namespace DataAccess.Abstract
 {
     public interface IGlassRecordDal : IEntitiyRepository<GlassRecord>
     {
+        GlassRecord GetLastRecordOfPatient(Guid patientId);
     }
 }

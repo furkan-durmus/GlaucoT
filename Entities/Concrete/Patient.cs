@@ -18,6 +18,6 @@ namespace Entities.Concrete
         public string PatientPhoneNumber    { get; set; }
         public string PatientPassword       { get; set; }
         public string PatientPhotoPath      { get; set; }
-        public bool   IsActive              { get; set; }
+        public bool   IsUserActive          { get; set; }
     }
 }

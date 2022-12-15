@@ -10,7 +10,7 @@ namespace Entities.Concrete
     public class Medicine : IEntity
     {
         public int MedicineId { get; set; }
-        public int MedicineName { get; set; }
+        public string MedicineName { get; set; }
         public string MedicineSideEffect { get; set; }
     }
 }

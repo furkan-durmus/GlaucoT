@@ -19,6 +19,14 @@ namespace Business.Constants
         }
         public bool CheckLoginIsValid(LoginPatient user)
         {
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(user.PatientPassword);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                user.PatientPassword = Convert.ToHexString(hashBytes); // .NET 5 +
+            }
+
             return _patientDal.Get(p => p.PatientPhoneNumber == user.PatientPhoneNumber && p.PatientPassword == user.PatientPassword) != null ? true : false;
         }
 

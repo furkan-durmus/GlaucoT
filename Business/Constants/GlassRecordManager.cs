@@ -37,5 +37,31 @@ namespace Business.Constants
         {
             _glassRecordDal.Update(glassRecord);
         }
+
+        public string UpdateOrAddGlassRecord(Guid patientId)
+        {
+            GlassRecord lastGlassRecord = _glassRecordDal.GetLastRecordOfPatient(patientId);
+            if (lastGlassRecord == null || lastGlassRecord.IsActive == false)
+            {
+                GlassRecord newGlassRecord = new();
+                newGlassRecord.PatientId = patientId;
+                newGlassRecord.StartDate = DateTime.Now;
+                newGlassRecord.IsActive = true;
+
+                _glassRecordDal.Add(newGlassRecord);
+
+                return "Glass record successfully started";
+            }
+            else
+            {
+
+                lastGlassRecord.EndDate = DateTime.Now;
+                lastGlassRecord.IsActive = false;
+
+                _glassRecordDal.Update(lastGlassRecord);
+
+                return "Glass record successfully ended";
+            }
+        }
     }
 }

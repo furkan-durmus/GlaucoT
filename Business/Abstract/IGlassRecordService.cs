@@ -13,5 +13,6 @@ namespace Business.Abstract
         void Add(GlassRecord glassRecord);
         void Update(GlassRecord glassRecord);
         void Delete(GlassRecord glassRecord);
+        string UpdateOrAddGlassRecord(Guid patientId);
     }
 }

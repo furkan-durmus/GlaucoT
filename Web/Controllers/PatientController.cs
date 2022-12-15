@@ -15,13 +15,19 @@ namespace Web.Controllers
         ILoginService _loginService;
         IMobileHomeService _mobileHomeService;
         IOTPService _otpService;
-        public PatientController(IPatientService patientService, IRegisterService registerService, ILoginService loginService, IMobileHomeService mobileHomeService, IOTPService otpService)
+        IGlassRecordService _glassRecordService;
+        IMedicineService _medicineService;
+        IMedicineRecordService _medicineRecordService;
+        public PatientController(IPatientService patientService, IRegisterService registerService, ILoginService loginService, IMobileHomeService mobileHomeService, IOTPService otpService, IGlassRecordService glassRecordService, IMedicineService medicineService, IMedicineRecordService medicineRecordService)
         {
             _patientService = patientService;
             _registerService = registerService;
             _loginService = loginService;
             _mobileHomeService = mobileHomeService;
             _otpService = otpService;
+            _glassRecordService = glassRecordService;
+            _medicineService = medicineService;
+            _medicineRecordService = medicineRecordService;
         }
 
         [HttpPost("register")]
@@ -40,16 +46,25 @@ namespace Web.Controllers
             }
 
 
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(registerPatient.PatientPassword);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                registerPatient.PatientPassword = Convert.ToHexString(hashBytes); // .NET 5 +
+            }
+
             Patient patient = new();
             patient.PatientId = new Guid();
+            patient.DoctorId = new Guid("283EF1B0-BF5B-45A4-B27D-38AF07A9E2D5");
             patient.PatientName = registerPatient.PatientName;
             patient.PatientLastName = registerPatient.PatientLastName;
             patient.PatientAge = 0;
             patient.PatientGender = 0;
             patient.PatientPhoneNumber = registerPatient.PatientPhoneNumber;
             patient.PatientPassword = registerPatient.PatientPassword;
-            patient.PatientPhotoPath = "null";
-            patient.IsActive = true;
+            patient.PatientPhotoPath = "https://glaucot.tuncayaltun.com/default.png";
+            patient.IsUserActive = true;
 
             _patientService.Add(patient);
             return Ok(new { message = patient.PatientId , status = 1 });
@@ -73,7 +88,54 @@ namespace Web.Controllers
         }
 
         [HttpPost("home")]
-        public IActionResult PatientHomeData(MobileHomeRequest patient)
+        public IActionResult PatientHomeData(GeneralMobilePatientRequest patient)
+        {
+
+            if (!_mobileHomeService.CheckKeyIsValid(patient.PatientId, patient.SecretKey))
+            {
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
+            }
+     
+            return Ok(new { status = 1, message = _mobileHomeService.GetAllPatientDataForMobileHome(patient.PatientId) });
+        } 
+        
+
+        [HttpPost("getallmedicines")]
+        public IActionResult GetAllMedicines(GeneralMobilePatientRequest patient)
+        {
+
+            if (!_mobileHomeService.CheckKeyIsValid(patient.PatientId, patient.SecretKey))
+            {
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
+            }
+     
+            return Ok(new { status = 1, message = _medicineService.GetAll() });
+        }        
+
+        [HttpPost("addmedicinerecord")]
+        public IActionResult AddPatientMedicineRecord(NewPatientMedicineRecord newMedicine)
+        {
+
+            if (!_mobileHomeService.CheckKeyIsValid(newMedicine.PatientId, newMedicine.SecretKey))
+            {
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
+            }
+
+            MedicineRecord patientNewMedicineRecord = new();
+            patientNewMedicineRecord.PatientId=newMedicine.PatientId;
+            patientNewMedicineRecord.MedicineId=newMedicine.MedicineId;
+            patientNewMedicineRecord.MedicineUsageRange = newMedicine.MedicineUsageRange;
+            patientNewMedicineRecord.MedicineFrequency = newMedicine.MedicineFrequency;
+            patientNewMedicineRecord.MedicineUsegeTimeList = newMedicine.MedicineUsegeTimeList;
+
+            _medicineRecordService.Add(patientNewMedicineRecord);
+
+
+            return Ok(new { status = 1, message = "Medicine successfully added to patient records" });
+        }
+
+        [HttpPost("addglassrecord")]
+        public IActionResult AddPatientGlassRecord(GeneralMobilePatientRequest patient)
         {
 
             if (!_mobileHomeService.CheckKeyIsValid(patient.PatientId, patient.SecretKey))
@@ -81,8 +143,8 @@ namespace Web.Controllers
                 return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
             }
 
-                   
-            return Ok(new { status = 1,message =new { UserProfileData = _mobileHomeService.GetUserProfileData(patient.PatientId), UserDrugsData = _mobileHomeService.GetUserDrugsData(patient.PatientId)} });
+     
+            return Ok(new { status = 1, message = _glassRecordService.UpdateOrAddGlassRecord(patient.PatientId) });
         }
         
 

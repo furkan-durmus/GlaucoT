@@ -10,5 +10,6 @@ namespace DataAccess.Abstract
 {
     public interface IMedicineRecordDal : IEntitiyRepository<MedicineRecord>
     {
+        List<UserMedicinesData> GetAllMedicineDataOfPatient(Guid patientId);
     }
 }
