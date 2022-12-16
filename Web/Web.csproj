@@ -18,8 +18,18 @@
     <Folder Include="Models\Home\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="Views\Doctor\" />
+    <Folder Include="wwwroot\protend\" />
+    <Folder Include="wwwroot\protend\css\" />
+    <Folder Include="wwwroot\protend\js\" />
+    <Folder Include="wwwroot\protend\js\pages\" />
+    <Folder Include="wwwroot\protend\libs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\" />
+    <Content Remove="wwwroot\protend\" />
+    <Content Remove="wwwroot\protend\css\" />
+    <Content Remove="wwwroot\protend\js\" />
+    <Content Remove="wwwroot\protend\js\pages\" />
+    <Content Remove="wwwroot\protend\libs\" />
   </ItemGroup>
 </Project>
