@@ -174,7 +174,7 @@ namespace Web.Controllers
             MedicineRecord patientDeleteMedicineRecord = new();
             patientDeleteMedicineRecord.MedicineRecordId = MedicineDataForDelete.MedicineRecordId;
             patientDeleteMedicineRecord.PatientId= MedicineDataForDelete.PatientId;
-            patientDeleteMedicineRecord.MedicineId= MedicineDataForDelete.MedicineId;
+     
  
 
             _medicineRecordService.Delete(patientDeleteMedicineRecord);

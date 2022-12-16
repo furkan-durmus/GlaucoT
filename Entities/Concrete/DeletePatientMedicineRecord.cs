@@ -10,7 +10,6 @@ namespace Entities.Concrete
     {
         public int MedicineRecordId { get; set; }
         public Guid PatientId { get; set; }
-        public int MedicineId { get; set; }
         public string SecretKey { get; set; }
     }
 }
