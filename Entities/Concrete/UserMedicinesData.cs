@@ -8,7 +8,7 @@ namespace Entities.Concrete
 {
     public class UserMedicinesData
     {
-        public int Id { get; set; }
+        public int MedicineRecordId { get; set; }
         public string MedicineName { get; set; }
         public int MedicineUsageRange { get; set; }
         public int MedicineFrequency { get; set; }

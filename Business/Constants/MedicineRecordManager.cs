@@ -31,12 +31,17 @@ namespace Business.Constants
 
         public MedicineRecord Get(int id)
         {
-            return _medicineRecordDal.Get(m => m.Id == id);
+            return _medicineRecordDal.Get(m => m.MedicineRecordId == id);
         }
 
         public List<MedicineRecord> GetAll(Guid patientId)
         {
             return _medicineRecordDal.GetAll(m => m.PatientId == patientId);
+        }
+
+        public List<MedicineRecord> GetAllRecordsAccordingToTime(string time)
+        {
+            return _medicineRecordDal.GetAll(m => m.MedicineUsegeTimeList.Contains(time));
         }
 
         public void Update(MedicineRecord medicineRecord)

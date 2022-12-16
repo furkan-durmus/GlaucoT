@@ -20,7 +20,7 @@ namespace DataAccess.Contrete.EntityFramework
                         where medicineRecords.PatientId == patientId
                         select new UserMedicinesData
                         {
-                            Id = medicineRecords.Id,
+                            MedicineRecordId = medicineRecords.MedicineRecordId,
                             MedicineName = medicines.MedicineName,
                             MedicineFrequency = medicineRecords.MedicineFrequency,
                             MedicineSideEffect = medicines.MedicineSideEffect,

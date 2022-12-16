@@ -134,6 +134,51 @@ namespace Web.Controllers
             return Ok(new { status = 1, message = "Medicine successfully added to patient records" });
         }
 
+        [HttpPost("updatemedicinerecord")]
+        public IActionResult UpdatePatientMedicineRecord(NewPatientMedicineRecord newMedicineData)
+        {
+
+            if (!_mobileHomeService.CheckKeyIsValid(newMedicineData.PatientId, newMedicineData.SecretKey))
+            {
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
+            }
+
+            MedicineRecord patientNewMedicineRecord = new();
+            patientNewMedicineRecord.MedicineRecordId = newMedicineData.MedicineRecordId;
+            patientNewMedicineRecord.PatientId= newMedicineData.PatientId;
+            patientNewMedicineRecord.MedicineId= newMedicineData.MedicineId;
+            patientNewMedicineRecord.MedicineUsageRange = newMedicineData.MedicineUsageRange;
+            patientNewMedicineRecord.MedicineFrequency = newMedicineData.MedicineFrequency;
+            patientNewMedicineRecord.MedicineUsegeTimeList = newMedicineData.MedicineUsegeTimeList;
+
+            _medicineRecordService.Update(patientNewMedicineRecord);
+
+
+            return Ok(new { status = 1, message = "Medicine record successfully updated." });
+        }
+
+
+        [HttpPost("deletemedicinerecord")]
+        public IActionResult DeletePatientMedicineRecord(DeletePatientMedicineRecord MedicineDataForDelete)
+        {
+
+            if (!_mobileHomeService.CheckKeyIsValid(MedicineDataForDelete.PatientId, MedicineDataForDelete.SecretKey))
+            {
+                return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
+            }
+
+            MedicineRecord patientDeleteMedicineRecord = new();
+            patientDeleteMedicineRecord.MedicineRecordId = MedicineDataForDelete.MedicineRecordId;
+            patientDeleteMedicineRecord.PatientId= MedicineDataForDelete.PatientId;
+            patientDeleteMedicineRecord.MedicineId= MedicineDataForDelete.MedicineId;
+ 
+
+            _medicineRecordService.Delete(patientDeleteMedicineRecord);
+
+
+            return Ok(new { status = 1, message = "Medicine record successfully deleted." });
+        }
+
         [HttpPost("addglassrecord")]
         public IActionResult AddPatientGlassRecord(GeneralMobilePatientRequest patient)
         {
@@ -143,8 +188,8 @@ namespace Web.Controllers
                 return Ok(new { status = -99 , message = $"Yetkisiz İşlem!"});
             }
 
-     
-            return Ok(new { status = 1, message = _glassRecordService.UpdateOrAddGlassRecord(patient.PatientId) });
+            string response = _glassRecordService.UpdateOrAddGlassRecord(patient.PatientId);
+            return Ok(new { status = response.Contains("start") ? 1 : 2, message = response });
         }
         
 

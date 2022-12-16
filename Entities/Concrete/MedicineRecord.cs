@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class MedicineRecord : IEntity
     {
-        public int Id { get; set; }
+        public int MedicineRecordId { get; set; }
         public Guid PatientId { get; set; }
         public int MedicineId { get; set; }
         public int MedicineUsageRange { get; set; }
