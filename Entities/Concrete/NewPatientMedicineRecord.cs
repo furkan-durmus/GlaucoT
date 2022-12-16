@@ -15,5 +15,6 @@ namespace Entities.Concrete
         public int MedicineFrequency { get; set; }
         public string MedicineUsegeTimeList { get; set; }
         public string SecretKey { get; set; }
+        public string? MedicineSideEffect { get; set; }
     }
 }

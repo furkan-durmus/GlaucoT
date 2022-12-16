@@ -127,6 +127,8 @@ namespace Web.Controllers
             patientNewMedicineRecord.MedicineUsageRange = newMedicine.MedicineUsageRange;
             patientNewMedicineRecord.MedicineFrequency = newMedicine.MedicineFrequency;
             patientNewMedicineRecord.MedicineUsegeTimeList = newMedicine.MedicineUsegeTimeList;
+            if(newMedicine.MedicineSideEffect !=null)
+                patientNewMedicineRecord.MedicineSideEffect = newMedicine.MedicineSideEffect;
 
             _medicineRecordService.Add(patientNewMedicineRecord);
 
@@ -150,6 +152,8 @@ namespace Web.Controllers
             patientNewMedicineRecord.MedicineUsageRange = newMedicineData.MedicineUsageRange;
             patientNewMedicineRecord.MedicineFrequency = newMedicineData.MedicineFrequency;
             patientNewMedicineRecord.MedicineUsegeTimeList = newMedicineData.MedicineUsegeTimeList;
+            if (newMedicineData.MedicineSideEffect != null)
+                patientNewMedicineRecord.MedicineSideEffect = newMedicineData.MedicineSideEffect;
 
             _medicineRecordService.Update(patientNewMedicineRecord);
 

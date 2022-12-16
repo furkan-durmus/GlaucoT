@@ -23,7 +23,7 @@ namespace DataAccess.Contrete.EntityFramework
                             MedicineRecordId = medicineRecords.MedicineRecordId,
                             MedicineName = medicines.MedicineName,
                             MedicineFrequency = medicineRecords.MedicineFrequency,
-                            MedicineSideEffect = medicines.MedicineSideEffect,
+                            MedicineSideEffect = medicineRecords.MedicineSideEffect,
                             MedicineUsageRange = medicineRecords.MedicineUsageRange,
                             MedicineUsegeTimeList =medicineRecords.MedicineUsegeTimeList
                         }).ToList();

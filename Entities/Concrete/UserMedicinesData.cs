@@ -13,6 +13,6 @@ namespace Entities.Concrete
         public int MedicineUsageRange { get; set; }
         public int MedicineFrequency { get; set; }
         public string MedicineUsegeTimeList { get; set; }
-        public string MedicineSideEffect { get; set; }
+        public string? MedicineSideEffect { get; set; }
     }
 }
