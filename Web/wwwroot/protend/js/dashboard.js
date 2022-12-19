@@ -428,7 +428,7 @@
                 colors.push($(this).attr('data-color'));
                 labels.push($(this).attr('data-label'));
             })
-            console.log(data);
+            //console.log(data);
             $('#chartjs-4').attr('width', width).attr('height', height);
             new Chart(document.getElementById("chartjs-4"), {
                 "type": "doughnut",
