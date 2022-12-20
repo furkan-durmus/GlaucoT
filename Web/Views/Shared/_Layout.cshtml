@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlaucoTs</title>
+    <title>GlaucoT</title>
     <link rel="shortcut icon" href="/images/glaucot.png" type="image/x-icon" />
     <!-- GOOGLE FONT -->
     @*<link rel="preconnect" href="https://fonts.gstatic.com">*@
@@ -30,8 +30,8 @@
     <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="sidebar-logo">
-            <a href="index.html">
-                <img src="./images/logo.png" alt="Protend logo">
+            <a href="@Url.Action("Index","Doctor")">
+                <img src="/images/glaucot.png" alt="Glaucot Logo" style="height:100px; border-radius: 15%;">
             </a>
             <div class="sidebar-close" id="sidebar-close">
                 <i class='bx bx-left-arrow-alt'></i>
@@ -171,99 +171,106 @@
             <div class="mobile-toggle" id="mobile-toggle">
                 <i class='bx bx-menu'></i>
             </div>
-            <div class="main-title">
-                Dashboard
-            </div>
+            @*<div class="main-title">
+                    Dashboard
+                </div>*@
         </div>
 
         <div class="d-flex align-items-center">
 
             <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
-                <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <span class="bx bx-search-alt"></span>
-                </div>
-            </form>
-            <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class='bx bx-search-alt'></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+            @*<form class="app-search d-none d-lg-block">
+                    <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="bx bx-search-alt"></span>
+                    </div>
+                </form>*@
+            @*<div class="dropdown d-inline-block d-lg-none ms-2">
+                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='bx bx-search-alt'></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
 
-                    <form class="p-3">
-                        <div class="form-group m-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary h-100" type="submit"><i class='bx bx-search-alt'></i></button>
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary h-100" type="submit"><i class='bx bx-search-alt'></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                        </form>
+                    </div>
+                </div>*@
 
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="btn dropdown-toggle" id="header-lang-img">
-                        EN
-                        <i class='bx bx-caret-down'></i>
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                        <img src="./images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
-                    </a>
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
-                        <img src="./images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
-                        <img src="./images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
-                        <img src="./images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
+            <!--<div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="btn dropdown-toggle" id="header-lang-img">
+                    EN
+                    <i class='bx bx-caret-down'></i>
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">-->
+            <!-- item-->
+            <!--<a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
+                <img src="./images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
+            </a>-->
+            <!-- item-->
+            <!--<a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
+                <img src="./images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+            </a>-->
+            <!-- item-->
+            <!--<a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
+                <img src="./images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+            </a>-->
+            <!-- item-->
+            <!--<a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
+                <img src="./images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+            </a>-->
+            <!-- item-->
+            <!--<a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
                         <img src="./images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
                     </a>
                 </div>
-            </div>
-            <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
+            </div>-->
+            <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
                         <i class="bx bx-fullscreen"></i>
                     </button>
-            </div> -->
-            <div class="dropdown d-inline-block mt-12">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="./images/profile/profile.png"
-                         alt="Header Avatar">
-                    <span class="pulse-css"></span>
-                    <span class="info d-xl-inline-block  color-span">
-                        <span class="d-block fs-20 font-w600">Randy Riley</span>
-                        <span class="d-block mt-7">randy.riley@gmail.com</span>
-                    </span>
+            </div>
+            <!--<div class="dropdown d-inline-block mt-12">
+            <button type="button" class="btn dropdown-toggle" id="page-header-user-dropdown">-->
+            @*<img class="rounded-circle header-profile-user" src="./images/profile/profile.png"
+                alt="Header Avatar">*@
+            <!--<span class=""></span>
+                <span class="info d-xl-inline-block  color-span">
+                    <span class="d-block fs-20 font-w600"></span>
+                    <span class="d-block mt-7">@User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value</span>
+                </span>
 
-                    <i class='bx bx-chevron-down'></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span>Profile</span></a>
+                <i class='bx bx-chevron-down'></i>
+            </button>
+            <div class="dropdown-menu">-->
+            <!-- item-->
+            <!--<a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span>Profile</span></a>
                     <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span>My Wallet</span></a>
                     <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span>Settings</span></a>
                     <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span>Lock screen</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="user-login.html"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
                 </div>
+            </div>-->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" style="box-shadow:unset;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    @User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value
+                    <i class='bx bx-chevron-down'></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Logout","Home")">Logout</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -283,6 +290,8 @@
     <!-- APEX CHART -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<script src="./libs/bootstrap/js/bootstrap.min.js"></script>*@
     @*<script src="./libs/jquery/jquery.min.js"></script>*@
     <script src="~/protend/libs/moment.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -290,8 +299,7 @@
     <script src="~/protend/libs/jquery.peity.min.js"></script>
     <script src="~/protend/libs/Chart.bundle.min.js"></script>
     <script src="~/protend/libs/owl.carousel.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    @*<script src="./libs/bootstrap/js/bootstrap.min.js"></script>*@
+
     <script src="~/protend/libs/apexcharts.js"></script>
     <script src="~/protend/libs/simplebar.min.js"></script>
 
