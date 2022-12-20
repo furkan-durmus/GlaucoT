@@ -19,9 +19,9 @@ namespace Business.Constants
             _medicineRecordDal = medicineRecordDal;
         }
 
-        public void Add(MedicineRecord medicineRecord)
+        public int Add(MedicineRecord medicineRecord)
         {
-            _medicineRecordDal.Add(medicineRecord);
+            return _medicineRecordDal.AddWithReturnMedicineRecordId(medicineRecord);
         }
 
         public void Delete(MedicineRecord medicineRecord)

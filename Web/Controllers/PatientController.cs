@@ -130,10 +130,10 @@ namespace Web.Controllers
             if(newMedicine.MedicineSideEffect !=null)
                 patientNewMedicineRecord.MedicineSideEffect = newMedicine.MedicineSideEffect;
 
-            _medicineRecordService.Add(patientNewMedicineRecord);
+            int medicineRecordId = _medicineRecordService.Add(patientNewMedicineRecord);
 
 
-            return Ok(new { status = 1, message = "Medicine successfully added to patient records" });
+            return Ok(new { status = 1, message = medicineRecordId });
         }
 
         [HttpPost("updatemedicinerecord")]

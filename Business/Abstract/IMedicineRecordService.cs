@@ -11,7 +11,7 @@ namespace Business.Abstract
     {
         List<MedicineRecord> GetAll(Guid patientId);
         MedicineRecord Get(int id);
-        void Add(MedicineRecord medicineRecord);
+        int Add(MedicineRecord medicineRecord);
         void Update(MedicineRecord medicineRecord);
         void Delete(MedicineRecord medicineRecord);
         List<MedicineRecord> GetAllRecordsAccordingToTime(string time);
