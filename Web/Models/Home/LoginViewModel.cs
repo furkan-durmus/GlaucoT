@@ -6,9 +6,9 @@ namespace Web.Models.Home
     public class LoginViewModel
     {
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
-        public string UserName { get; set; }
+        public string Email { get; set; }
         [Required(ErrorMessage = "Please enter password")]
-        public string UserPassword { get; set; }
+        public string Password { get; set; }
     }
 }
 
