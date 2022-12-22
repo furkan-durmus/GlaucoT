@@ -31,7 +31,7 @@ namespace Business.Constants
         public void DoctorApprove(Guid doctorId, bool confirmed)
         {
             Doctor response = _doctorDal.Get(q => q.DoctorId == doctorId);
-            response.IsApproved = true;
+            response.IsApproved = confirmed;
 
             _doctorDal.Update(response);
         }
@@ -66,7 +66,8 @@ namespace Business.Constants
                 DoctorPassword = password,
                 DoctorName = "GlaucoT",
                 DoctorLastName = "GlaucoT",
-                SecurityStamp = securityStamp
+                SecurityStamp = securityStamp,
+                IsApproved = true
             };
             _doctorDal.Add(doctor);
         }
