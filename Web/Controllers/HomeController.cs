@@ -20,10 +20,12 @@ namespace Web.Controllers
         private readonly UserManager<DoctorUser> _userManager;
         private readonly SignInManager<DoctorUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, IDoctorService doctorService = null)
+        public HomeController(ILogger<HomeController> logger, IDoctorService doctorService, UserManager<DoctorUser> userManager, SignInManager<DoctorUser> signInManager)
         {
             _logger = logger;
             _doctorService = doctorService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -100,8 +102,8 @@ namespace Web.Controllers
 
         public IActionResult KayitOl()
         {
-            if (User.Identity.IsAuthenticated)
-                return Redirect("/Doctor/Index");
+            //if (User.Identity.IsAuthenticated)
+            //    return Redirect("/Doctor/Index");
 
             return View();
         }
@@ -127,12 +129,12 @@ namespace Web.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.FindByNameAsync(model.Email);
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //var user = await _userManager.FindByNameAsync(model.Email);
+            //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             //await _mediator.Send(new UpdateKullaniciTokenCommand { Token = token, KullaniciId = user.Id });
 
-            return RedirectToAction("OnaySayfasi");
+            return Redirect("/");
         }
 
 

@@ -21,7 +21,7 @@ namespace Web.Identity
         public async Task<IdentityResult> CreateAsync(DoctorUser user, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            _doctorService.Register(user.DoctorEmail, user.PasswordHashed);
+            _doctorService.Register(user.DoctorEmail, user.PasswordHashed, user.SecurityStamp);
             //await _mediator.Send(new CreateKullaniciCommand { UserName = user.UserName,
                 //PasswordHashed = user.SifreHashed, SecurityStamp = user.SecurityStamp }, cancellationToken);
             return IdentityResult.Success;
@@ -330,6 +330,7 @@ namespace Web.Identity
             cancellationToken.ThrowIfCancellationRequested();
 
             user.SecurityStamp = stamp;
+
             return Task.CompletedTask;
             //await _mediator.Send(new SetSecurityStampKullaniciCommand { Id = user.Id, SecurityStamp = stamp }, cancellationToken);
         }

@@ -48,7 +48,8 @@ namespace Business.Constants
 
         public Doctor GetByEmail(string email)
         {
-            return _doctorDal.Get(q => q.DoctorEmail == email);
+            var response = _doctorDal.Get(q => q.DoctorEmail == email);
+            return response;
         }
 
         public void Login(string email, string password)
@@ -57,9 +58,17 @@ namespace Business.Constants
             _doctorDal.Add(doctorUser);
         }
 
-        public void Register(string email, string password)
+        public void Register(string email, string password, string securityStamp)
         {
-            throw new NotImplementedException();
+            Doctor doctor = new Doctor
+            {
+                DoctorEmail = email,
+                DoctorPassword = password,
+                DoctorName = "GlaucoT",
+                DoctorLastName = "GlaucoT",
+                SecurityStamp = securityStamp
+            };
+            _doctorDal.Add(doctor);
         }
 
         public void Update(Doctor doctor)

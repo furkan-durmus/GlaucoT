@@ -15,7 +15,7 @@ namespace Business.Abstract
         void Add(Doctor doctor);
         void Update(Doctor doctor);
         void Delete(Doctor doctor);
-        void Register(string email, string password);
+        void Register(string email, string password, string securityStamp);
         Doctor GetByEmail(string email);
         void DoctorApprove(Guid doctorId, bool confirmed);
     }
