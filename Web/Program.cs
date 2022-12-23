@@ -3,8 +3,50 @@ using Business.Constants;
 using DataAccess.Abstract;
 using DataAccess.Contrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Web.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+#region Identity
+
+builder.Services.AddScoped<IUserStore<DoctorUser>, DoctorUserStore>();
+builder.Services.AddScoped<IRoleStore<IdentityRole>, DoctorUserRoleStore>();
+builder.Services.AddScoped<UserManager<DoctorUser>, DoctorUserManager>();
+builder.Services.AddIdentity<DoctorUser, IdentityRole>(v =>
+{
+    v.SignIn.RequireConfirmedAccount = true;
+    v.SignIn.RequireConfirmedEmail = true;
+    v.Password.RequiredLength = 5;
+    v.User.RequireUniqueEmail = true;
+    v.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+    v.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
+}).AddDefaultTokenProviders();
+builder.Services.AddAuthentication();
+builder.Services.ConfigureApplicationCookie(v =>
+{
+    v.Cookie.Name = "GlaucoT.Cookie";
+    v.LoginPath = "/Home/Index";
+    v.ExpireTimeSpan = TimeSpan.FromDays(30);
+    v.Cookie.SameSite = SameSiteMode.Strict;
+    v.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    //v.AccessDeniedPath = "/Yardimci/Index";
+});
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(v =>
+{
+    v.Cookie.Name = "GlaucoT.Session";
+    v.IdleTimeout = TimeSpan.FromMinutes(30);
+    v.Cookie.IsEssential = true;
+    v.Cookie.SameSite = SameSiteMode.Strict;
+    v.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+});
+
+#endregion
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -40,13 +82,12 @@ builder.Services.AddSingleton<IRegisterService, RegisterManager>();
 builder.Services.AddSingleton<ILoginService, LoginManager>();
 builder.Services.AddSingleton<IMobileHomeService, MobileHomeManager>();
 
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Home/Index";
-        options.Cookie.Name = "GlaucotCookie";
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/Home/Index";
+//        options.Cookie.Name = "GlaucotCookie";
+//    });
 
 
 var app = builder.Build();

@@ -39,10 +39,10 @@
                         </div>*@
                         <h3 class="form-title-center">Sign in</h3>
                         <form method="post" asp-controller="Home" asp-action="Index">
-                            <input class="form-control" type="text" asp-for="UserName" placeholder="E-mail Address" required>
-                            <span asp-validation-for="UserName" class="text-danger"></span>
-                            <input class="form-control mt-3" type="password" asp-for="UserPassword" placeholder="Password" required>
-                            <span asp-validation-for="UserPassword" class="text-danger"></span>
+                            <input class="form-control" type="text" asp-for="Email" placeholder="E-mail Address" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input class="form-control mt-3" type="password" asp-for="Password" placeholder="Password" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
                             <div class="form-button">
                                 <button id="submit" type="submit" class="ibtn ibtn-full">Login</button>
                             </div>

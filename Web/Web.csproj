@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Models\Home\" />
     <None Remove="Views\Doctor\" />
+    <None Remove="Identity\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Home\" />
@@ -23,6 +24,7 @@
     <Folder Include="wwwroot\protend\js\" />
     <Folder Include="wwwroot\protend\js\pages\" />
     <Folder Include="wwwroot\protend\libs\" />
+    <Folder Include="Identity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\" />

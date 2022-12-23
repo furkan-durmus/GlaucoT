@@ -28,6 +28,14 @@ namespace Business.Constants
             _doctorDal.Delete(doctor);
         }
 
+        public void DoctorApprove(Guid doctorId, bool confirmed)
+        {
+            Doctor response = _doctorDal.Get(q => q.DoctorId == doctorId);
+            response.IsApproved = confirmed;
+
+            _doctorDal.Update(response);
+        }
+
         public Doctor Get(Guid doctorId)
         {
             return _doctorDal.Get(d => d.DoctorId == doctorId);
@@ -38,9 +46,30 @@ namespace Business.Constants
             return _doctorDal.GetAll();
         }
 
-        public Doctor Login(string email, string password)
+        public Doctor GetByEmail(string email)
         {
-            return _doctorDal.Get(q => q.DoctorEmail == email && q.DoctorPassword == password);
+            var response = _doctorDal.Get(q => q.DoctorEmail == email);
+            return response;
+        }
+
+        public void Login(string email, string password)
+        {
+            var doctorUser = new Doctor { DoctorEmail = email, DoctorPassword = password };
+            _doctorDal.Add(doctorUser);
+        }
+
+        public void Register(string email, string password, string securityStamp)
+        {
+            Doctor doctor = new Doctor
+            {
+                DoctorEmail = email,
+                DoctorPassword = password,
+                DoctorName = "GlaucoT",
+                DoctorLastName = "GlaucoT",
+                SecurityStamp = securityStamp,
+                IsApproved = true
+            };
+            _doctorDal.Add(doctor);
         }
 
         public void Update(Doctor doctor)
