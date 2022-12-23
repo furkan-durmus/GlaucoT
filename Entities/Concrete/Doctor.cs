@@ -14,5 +14,7 @@ namespace Entities.Concrete
         public string DoctorLastName { get; set; }
         public string DoctorEmail { get; set; }
         public string DoctorPassword { get; set; }
+        public string SecurityStamp { get; set; }
+        public bool IsApproved { get; set; }
     }
 }
